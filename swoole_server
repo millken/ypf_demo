@@ -15,7 +15,7 @@ define("__CONF__",__DIR__. '/conf.d');
 /*
 require (__DIR__ .'/vendor/autoload.php');
 
-*/require (__ROOT__ . '/src/Ypf/Ypf.php');
+*/require (__ROOT__ . '/Ypf/src/Ypf/Ypf.php');
 
 spl_autoload_register("\\Ypf\\Ypf::autoload");
 
