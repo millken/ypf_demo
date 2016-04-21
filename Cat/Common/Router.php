@@ -53,7 +53,6 @@ REGEX;
 	}
 
 	public function index() {
-		return $this->action('\Cat\Home\Index\viewtest1');
 		$route = \Ypf\Lib\Config::get("router");
 
 		$uri = $this->getUri();

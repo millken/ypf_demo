@@ -35,6 +35,10 @@ $app->setWorkerConfigPath(__CONF__ . '/worker/');
 $load = new \Ypf\Lib\Load(__ROOT__);
 $app->set('load', $load);
 
+//db
+$db = new \Ypf\Database\Mysql($config->get("db.test"));
+$app->set('db', $db);
+
 //cache 
 $cache = new \Ypf\Swoole\Cache(1024);
 $app->set('cache', $cache);

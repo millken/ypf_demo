@@ -3,6 +3,7 @@
 namespace Cat\Home;
 
 class Index extends \Cat\Controller {
+	static $lru;
 
 	public function index() {
 
@@ -21,6 +22,9 @@ class Index extends \Cat\Controller {
 	}
 
 	public function viewtest1() {
+		if (self::$lru == null) {
+			self::$lru = new \Ypf\Cache\Lrucache(100);
+		}
 		$username = $this->request->get("username", "trim", "tester");
 		$this->response->addHeader("Server", "Swoole-Ypf");
 //$this->response->setCompression(9);
