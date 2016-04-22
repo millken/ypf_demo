@@ -3,7 +3,6 @@
 namespace Cat\Home;
 
 class Index extends \Cat\Controller {
-	static $lru;
 
 	public function index() {
 
@@ -22,20 +21,14 @@ class Index extends \Cat\Controller {
 	}
 
 	public function viewtest1() {
-		if (self::$lru == null) {
-			self::$lru = new \Ypf\Cache\Lrucache(100);
-		}
 		$username = $this->request->get("username", "trim", "tester");
 		$this->response->addHeader("Server", "Swoole-Ypf");
-//$this->response->setCompression(9);
-		$this->view->setResponse($this->response);
+		//$this->response->setCompression(9);
 		//$this->view->setTemplateDir(__APP__ . '/CatView/');
 		$this->view->assign('username', $username);
 		$this->view->assign('header', $this->action("\Cat\Common\Header\index"));
 		//$this->view->assign('header', "\Cat\Common\Header\index");
 		$this->view->display("index.tpl");
 		//$this->response->setOutput("xx");
-		//$this->response->response->header("Server", "Swoole-Ypf");
-		//$this->response->response->end("xx");
 	}
 }
