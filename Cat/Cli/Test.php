@@ -13,14 +13,11 @@ class Test extends \Cat\Controller {
 	);
 	public function __construct() {
 		//log
-		$this->log = new \Ypf\Lib\Log('./debug.log');
-		$this->log->SetLevel(0);
 	}
 
 	public function index() {
 		while (1) {
 			$msg = date('Y-m-d H:i:s') . "===" . getmypid();
-			$this->log->Info($msg);
 			sleep(3);
 		}
 	}
@@ -57,7 +54,6 @@ class Test extends \Cat\Controller {
 			//$this->index2();
 			$r = $this->thread->block(array("\Cat\Cli\Test", 'curl_get'), $this->urls, 8000);
 			$tt = number_format((microtime(true) - $t), 4) . 's';
-			$this->log->Info("async test curl 5 url time: " . $tt);
 			sleep(5);
 		}
 	}
@@ -72,7 +68,6 @@ class Test extends \Cat\Controller {
 				//$this->log->Info($r);
 			}
 			$tt = number_format((microtime(true) - $t), 4) . 's';
-			$this->log->Info("syntest curl 5url time: " . $tt);
 			sleep(5);
 		}
 	}
