@@ -1,7 +1,7 @@
 {
     "name": "millken/ypf_demo",
     "require": {
-        "millken/ypf": "dev-master"
+        "millken/ypf": "dev-dev"
     },
     "authors": [
         {

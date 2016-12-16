@@ -14,6 +14,7 @@ class User extends \Cat\Controller {
 		$id = $this->request->get("id");
 		$res = self::$lru->cache($id, function () use ($id) {
 			$user = new \Model\Login\User();
+			echo "miss\n";
 			return $user->getUserById($id);
 		}, 10);
 		//$res = $user->getUserById($id);
