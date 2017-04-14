@@ -1,7 +1,9 @@
 {
     "name": "millken/ypf_demo",
     "require": {
-        "millken/ypf": "dev-dev"
+        "millken/ypf": "dev-dev",
+        "monolog/monolog": "^1.22",
+        "container-interop/container-interop": "^1.2"
     },
     "authors": [
         {
