@@ -20,6 +20,20 @@ return [
 			],
 		]
 	],
+    'request' => [
+        'class' => \Ypf\Http\Request::class,
+    ],
+    'response' => [
+        'class' => \Ypf\Http\Response::class,
+        'calls' => [
+            [
+                'method' => 'setCompression',
+                'arguments' => [
+                    6,
+                ]
+            ],
+        ],
+    ],
     StreamHandler::class => [
         'class' => StreamHandler::class,
         'arguments' => [

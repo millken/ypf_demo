@@ -22,7 +22,13 @@ $app = new \Ypf\Swoole($services);
 
 $app->setServerConfigIni(__CONF__ . '/server.conf');
 
-//$app->start();
+$view = new \Cat\View(); 
+$view->setTemplateDir(__APP__ . '/CatView/');
+$app->set('view', $view);
+
+$app->addBeforeAction("Cat\Common\Router\index");
+
+$app->start();
 
 //config
 //$config = new \Ypf\Lib\Config();
@@ -32,7 +38,7 @@ $app->setServerConfigIni(__CONF__ . '/server.conf');
 
 
 
-$app->logger->debug('This will be logged to the file');
+//$app->logger->debug('This will be logged to the file');
 //$app->logger->error('This will be logged to the mail');
 
 
