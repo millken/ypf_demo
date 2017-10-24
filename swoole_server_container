@@ -22,6 +22,8 @@ $app = new \Ypf\Swoole($services);
 
 $app->setServerConfigIni(__CONF__ . '/server.conf');
 
+$app->setWorkerConfigPath(__CONF__ . '/worker/');
+
 $view = new \Cat\View(); 
 $view->setTemplateDir(__APP__ . '/CatView/');
 $app->set('view', $view);

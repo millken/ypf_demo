@@ -13,11 +13,6 @@ define("__CONF__",__DIR__. '/conf.d');
 
 
 require (__DIR__ .'/vendor/autoload.php');
-/*
-require (__ROOT__ . '/Ypf/src/Ypf/Ypf.php');
-
-spl_autoload_register("\\Ypf\\Ypf::autoload");
-*/
 $setting = array(
 	'root' => __DIR__,
 	);
@@ -28,19 +23,6 @@ $config = new \Ypf\Lib\Config();
 $config->load(__CONF__);
 
 $app->setServerConfigIni(__CONF__ . '/server.conf');
-
-$app->setWorkerConfigPath(__CONF__ . '/worker/');
-
-$load = new \Ypf\Lib\Load(__ROOT__);
-$app->set('load', $load);
-
-//db
-$db = new \Ypf\Database\Pdo($config->get("db.test"));
-$app->set('db', $db);
-
-//memcache
-$memcache = new \Ypf\Cache\Stores\Memcache($config->get("memcache.test"));
-$app->set('memcache', $memcache);
 
 //request
 $app->set('request', new \Ypf\Http\Request());
@@ -56,7 +38,6 @@ $app->set('view', $view);
 
 $app->set('config', $config);
 
-//$app->addPreAction("Cat\Common\Init\config");
 $app->addBeforeAction("Cat\Common\Router\index");
 
 $app->start();

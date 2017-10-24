@@ -1,6 +1,8 @@
 <?php
 namespace Cat\Cli;
 
+use \Ypf\Swoole\Thread;
+
 class Test extends \Cat\Controller {
 	private $log;
 	private $urls = array(
@@ -29,13 +31,13 @@ class Test extends \Cat\Controller {
 	}
 
 	public function test3() {
-		$this->test4();
+		//$this->test4();
 		$msg = sprintf("test 3 : %s pid= %d\n", date('Y-m-d H:i:s'), getmypid());
 		echo $msg;
 	}
 
 	public function index2() {
-		$this->thread->add(array("\Cat\Cli\Test", 't_1'), array(), array("\Cat\Cli\Test", 'r_1'));
+		Thread::add(array("\Cat\Cli\Test", 't_1'), array(), array("\Cat\Cli\Test", 'r_1'));
 	}
 
 	public static function t_1($args = array()) {
@@ -52,8 +54,10 @@ class Test extends \Cat\Controller {
 		while (1) {
 			$t = microtime(true);
 			//$this->index2();
-			$r = $this->thread->block(array("\Cat\Cli\Test", 'curl_get'), $this->urls, 8000);
+			$r = Thread::block(array("\Cat\Cli\Test", 'curl_get'), $this->urls, 8000);
 			$tt = number_format((microtime(true) - $t), 4) . 's';
+			echo $tt;
+			print_r($r);
 			sleep(5);
 		}
 	}
@@ -65,7 +69,7 @@ class Test extends \Cat\Controller {
 			$t = microtime(true);
 			foreach ($this->urls as $url) {
 				$r = self::curl_get($url);
-				//$this->log->Info($r);
+				echo($r);
 			}
 			$tt = number_format((microtime(true) - $t), 4) . 's';
 			sleep(5);
@@ -75,13 +79,14 @@ class Test extends \Cat\Controller {
 	public static function curl_get($url) {
 		$ch = \curl_init();
 		//echo ($url);
-		\curl_setopt($ch, CURLOPT_TIMEOUT, 5); //5秒超时
+		\curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+		\curl_setopt($ch, CURLOPT_TIMEOUT, 4); //5秒超时
 		\curl_setopt($ch, CURLOPT_URL, $url);
 		\curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		\curl_setopt($ch, CURLOPT_HEADER, 0);
 		$result = \curl_exec($ch);
 		\curl_close($ch);
-		$result = "res get";
+		//$result = "res get";
 		return $result;
 	}
 }
