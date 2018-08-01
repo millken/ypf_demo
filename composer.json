@@ -1,10 +1,17 @@
 {
     "name": "millken/ypf_demo",
     "require": {
-        "millken/ypf": "^1.2",
+        "millken/ypf": "v2.x-dev",
         "monolog/monolog": "^1.22",
-        "container-interop/container-interop": "^1.2"
+        "slim/php-view": "dev-master"
     },
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "Controller",
+            "Middleware\\": "Middleware",
+            "Worker\\": "Worker"
+        }
+    },	
     "authors": [
         {
             "name": "millken",
