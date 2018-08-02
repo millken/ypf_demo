@@ -2,14 +2,23 @@ ypf_demo
 ===
 
 using
-==
-````
-[millken@localhost ypf_demo]$ ./swoole_server start
-server starting ...
-starting worker : test        [ OK ]
-starting worker : test2        [ OK ]
-starting cron worker     [ OK ]
+===
 
+Test PHP Mode
+````
+#php -S 7000 example.php
+````
+
+Test Swoole Mode
+````
+#php swoole.php
+````
+
+open  http://127.0.0.1:7000
+
+Test Swoole Worker Mode
+````
+#php swoole_worker.php
 ````
 
 performance

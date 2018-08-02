@@ -16,6 +16,8 @@ $services = [
             [Worker\CronTest::class, '* * * * *'],
         ],
         'options' => [
+            'daemonize' => 0,
+            'worker_num' => 1,
         ],
     ],
 ];

@@ -1,12 +1,15 @@
 {
     "name": "millken/ypf_demo",
+    "description": "ypf demo",
     "require": {
-        "millken/ypf": "v2.x-dev",
         "monolog/monolog": "^1.22",
-        "slim/php-view": "dev-master"
+        "slim/php-view": "dev-master",
+        "millken/ypf": "dev-master",
+        "psr7-sessions/storageless": "^4.0.0"
     },
     "autoload": {
         "psr-4": {
+            "Ypf\\":"..\\ypf\\src",
             "Controller\\": "Controller",
             "Middleware\\": "Middleware",
             "Worker\\": "Worker"

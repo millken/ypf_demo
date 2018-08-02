@@ -9,19 +9,21 @@ use Ypf\Controller\RestController;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use GuzzleHttp\Psr7\Response;
+use PSR7Sessions\Storageless\Http\SessionMiddleware;
 
 class Greeter extends RestController
 {
     public function get(ServerRequestInterface $request, RequestHandlerInterface $requestHandler): ResponseInterface
     {
         $name = ucwords($request->getAttribute('name', 'World!'));
-
+        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+        $session->set('counter', $session->get('counter', 0) + 1);
         $data = [
             'name' => $name,
+            'counter' => $session->get('counter'),
         ];
 
-
-        return $this->view->render(new Response(), "/hello.html", $data);
+        return $this->view->render(new Response(), '/hello.html', $data);
     }
 
     public function put(ServerRequestInterface $request, RequestHandlerInterface $requestHandler)
