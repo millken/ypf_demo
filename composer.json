@@ -5,7 +5,8 @@
         "monolog/monolog": "^1.22",
         "slim/php-view": "dev-master",
         "millken/ypf": "dev-master",
-        "psr7-sessions/storageless": "^4.0.0"
+        "psr7-sessions/storageless": "^4.0.0",
+        "dragonmantank/cron-expression": "dev-master"
     },
     "autoload": {
         "psr-4": {
