@@ -9,11 +9,11 @@ $services = [
     FactoryInterface::class => SwooleWorkerApplicationFactory::class,
     'worker' => [
         'single' => [
-            Worker\SingleTest::class,
+            //Worker\SingleTest::class,
         ],
         'cron' => [
-            [Worker\CronTest::class, '30 * * * *'],
-            [Worker\CronTest::class, '* * * * *'],
+            //[Worker\CronTest::class, '* * * * *'],
+            [Worker\BrokenTest::class, '5'],
         ],
         'options' => [
             'daemonize' => 0,
@@ -22,7 +22,22 @@ $services = [
     ],
 ];
 
-$services['db'] = function () {};
+$services['db'] = function () {
+    $config = [
+        'dbtype' => 'pgsql',
+        'host' => '172.17.0.3',
+        'port' => 5432,
+        'dbname' => 'ip',
+        'username' => 'postgres',
+        'password' => 'admin',
+        'charset' => 'utf8',
+        'timeout' => 3,
+        'presistent' => false,
+    ];
+    $db = new Ypf\Database\Connection($config);
+
+    return $db;
+};
     // monolog
 $services[\Psr\Log\LoggerInterface::class] = function () {
     $logger = new Monolog\Logger('test');
