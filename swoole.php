@@ -17,11 +17,61 @@ $services = [
     'swoole' => [
         'listen' => '*:7000',
     ],
+    'static-files' => [
+        //https://docs.zendframework.com/zend-expressive-swoole/static-resources/
+        // Document root; defaults to "getcwd() . '/public'"
+        'document-root' => getcwd(),
+
+        // Extension => content-type map.
+        // Keys are the extensions to map (minus any leading `.`),
+        // values are the MIME type to use when serving them.
+        // A default list exists if none is provided.
+        'type-map' => [],
+
+        // How often a worker should clear the filesystem stat cache.
+        // If not provided, it will never clear it. The value should be
+        // an integer indicating the number of seconds between clear
+        // operations. 0 or negative values will clear on every request.
+        'clearstatcache-interval' => 3600,
+
+        // Which ETag algorithm to use.
+        // Must be one of "weak" or "strong"; the default, when none is
+        // provided, is "weak".
+        'etag-type' => 'weak|strong',
+
+        // gzip options
+        'gzip' => [
+            // Compression level to use.
+            // Should be an integer between 1 and 9; values less than 1
+            // disable compression.
+            'level' => 4,
+        ],
+
+        // Rules governing which server-side caching headers are emitted.
+        // Each key must be a valid regular expression, and should match
+        // typically only file extensions, but potentially full paths.
+        // When a static resource matches, all associated rules will apply.
+        'directives' => [
+            'regex' => [
+                'cache-control' => [
+                    // one or more valid Cache-Control directives:
+                    // - must-revalidate
+                    // - no-cache
+                    // - no-store
+                    // - no-transform
+                    // - public
+                    // - private
+                    // - max-age=\d+
+                ],
+                'last-modified' => bool, // Emit a Last-Modified header?
+                'etag' => bool, // Emit an ETag header?
+            ],
+        ],
+    ],
     'routes' => [
         [
             'pattern' => '/',
             'middleware' => [
-                Middleware\RewriteMiddleware::class,
                 Controller\Index::class,
             ],
             'methods' => ['GET'],
@@ -33,18 +83,19 @@ $services = [
             ],
             'methods' => ['POST', 'GET', 'PUT'],
             'headers' => [
-                'Server' => true,
+                'Server' => false,
             ],
         ], [
             'pattern' => '/text{/{name}}?',
             'middleware' => [
                 Controller\Text::class,
             ],
-        ], [
-            'pattern' => '/hello',
-            'class' => Ypf\Router\StaticRoute::class,
-            'request_handler' => Controller\Index::class,
         ],
+        //  [
+        //     'pattern' => '/hello',
+        //     'class' => Ypf\Router\StaticRoute::class,
+        //     'request_handler' => Controller\Index::class,
+        // ],
     ],
     'middleware' => [
         new SessionMiddleware(
