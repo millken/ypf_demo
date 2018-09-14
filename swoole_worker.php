@@ -13,7 +13,7 @@ $services = [
         ],
         'cron' => [
             //[Worker\CronTest::class, '* * * * *'],
-            [Worker\BrokenTest::class, '5'],
+            [Worker\BrokenTest::class, '3'],
         ],
         'options' => [
             'daemonize' => 0,

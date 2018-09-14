@@ -16,6 +16,7 @@ $services = [
     FactoryInterface::class => SwooleApplicationFactory::class,
     'swoole' => [
         'listen' => '*:7000',
+        'enableCoroutine' => false,
     ],
     'static-files' => [
         //https://docs.zendframework.com/zend-expressive-swoole/static-resources/
@@ -63,8 +64,8 @@ $services = [
                     // - private
                     // - max-age=\d+
                 ],
-                'last-modified' => bool, // Emit a Last-Modified header?
-                'etag' => bool, // Emit an ETag header?
+                'last-modified' => false, // Emit a Last-Modified header?
+                'etag' => true, // Emit an ETag header?
             ],
         ],
     ],
@@ -133,7 +134,7 @@ $services['db'] = function () {
     // monolog
 $services[\Psr\Log\LoggerInterface::class] = function () {
     $logger = new Monolog\Logger('test');
-    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
+    $logger->pushProcessor(new Monolog\Processor\PsrLogMessageProcessor(null, true));
     $logger->pushHandler(new Monolog\Handler\StreamHandler('php://stdout', Monolog\Logger::DEBUG));
 
     return $logger;
