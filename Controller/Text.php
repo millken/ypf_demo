@@ -14,12 +14,28 @@ class Text extends Controller
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        static::getContainer()->get(\Psr\Log\LoggerInterface::class)->info('Hello, '.$request->getAttribute('name', 'World!'));
-        $mon = $this->db->table('17mon')->limit(4)->offset(0)->orderBy('id desc')->select();
-        $data = [
-            'mon' => $mon,
-        ];
+        $logger = static::getContainer()->get(\Psr\Log\LoggerInterface::class);
+        $logger->info('Hello, '.$request->getAttribute('name', 'World!'));
 
-        return $this->view->render(new Response(), '/ip.html', $data);
+        $this->db->insert('user', [
+            'name' => mt_rand(111, 3333),
+            'status' => true,
+            'date_added' => date('Y-m-d'),
+            ]);
+        $logger->info('insertID={id}', ['id' => $this->db->id()]);
+
+        $data = $this->db->select('user', 'name,status', ['LIMIT' => [0, 3]]);
+
+        $this->db->update('user', ['name' => 'test'], ['id' => 3]);
+        $this->db->delete('user', ['id' => $this->db->id()]);
+        $data = $this->db->get('user', 'name', ['id' => 3]);
+        $logger->info('name={name}', ['name' => $data]);
+
+        $data = $this->db->count('user', '*', ['id' => 3]);
+        $logger->info('count={name}', ['name' => $data]);
+
+        $logger->info($this->db->sql());
+
+        return $this->view->render(new Response(), '/ip.html', []);
     }
 }
