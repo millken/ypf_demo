@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use function GuzzleHttp\Psr7\stream_for;
 
 class RewriteMiddleware implements MiddlewareInterface
 {
@@ -25,7 +26,7 @@ class RewriteMiddleware implements MiddlewareInterface
         $response = $handler->handle($request);
 
         return $response->withBody(
-            stream_fora('Hello, Middleware!')
+            stream_for('Hello, Middleware!'.mt_rand(1111, 9999))
         );
     }
 }

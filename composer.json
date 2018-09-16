@@ -3,10 +3,9 @@
     "description": "ypf demo",
     "require": {
         "monolog/monolog": "^1.22",
-        "slim/php-view": "dev-master",
-        "millken/ypf": "dev-master",
-        "psr7-sessions/storageless": "^4.0.0",
-        "dragonmantank/cron-expression": "dev-master"
+        "oscarotero/middleland": "dev-master",
+        "middlewares/request-handler": "dev-master",
+        "middlewares/fast-route": "dev-master"
     },
     "autoload": {
         "psr-4": {
