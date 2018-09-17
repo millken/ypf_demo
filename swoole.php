@@ -8,7 +8,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         //The route parameters are stored as attributes
         $name = $request->getAttribute('name');
         //You can echo the output (it will be captured and written into the body)
-        return sprintf('Hello %s', str_repeat($name, mt_rand(100, 1000)));
+        return sprintf('Hello %s', $name);
     });
     $r->addRoute('GET', '/home', 'Controller\Index@index');
 });

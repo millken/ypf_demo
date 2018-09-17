@@ -5,7 +5,8 @@
         "monolog/monolog": "^1.22",
         "oscarotero/middleland": "dev-master",
         "middlewares/request-handler": "dev-master",
-        "middlewares/fast-route": "dev-master"
+        "middlewares/fast-route": "dev-master",
+        "opulence/router": "^1.0@dev"
     },
     "autoload": {
         "psr-4": {
