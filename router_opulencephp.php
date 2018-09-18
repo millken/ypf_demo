@@ -40,6 +40,7 @@ $services = [
         ],
         'options' => [
             'task_worker_num' => 3,
+            'dispatch_mode' => 1,
         ],
     ],
     'workers' => [
