@@ -7,7 +7,8 @@
         "middlewares/request-handler": "dev-master",
         "middlewares/fast-route": "dev-master",
         "opulence/router": "^1.0@dev",
-        "middlewares/access-log": "dev-master"
+        "middlewares/access-log": "dev-master",
+        "dragonmantank/cron-expression": "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Worker;
 
-use Psr\Log\LoggerInterface;
-use Psr\Container\ContainerInterface;
+use Ypf\Controller\CronWorker;
 
-class SingleTest
+class SingleTest extends CronWorker
 {
-    public function run(ContainerInterface $container): void
+    public function run(): void
     {
-        $logger = $container->get(LoggerInterface::class);
-
+        $this->logger->info('test single');
         while (true) {
-            $logger->error('test single worker');
-            sleep(3);
+            $this->logger->info('test single');
+            \Swoole\Coroutine::sleep(3);
         }
     }
 }

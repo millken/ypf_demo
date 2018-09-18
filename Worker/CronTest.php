@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Worker;
 
-class CronTest
+use Ypf\Controller\CronWorker;
+
+class CronTest extends CronWorker
 {
     public function run(): void
     {
-        echo 'test';
+        echo 'test'.PHP_EOL;
     }
 }

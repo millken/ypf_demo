@@ -34,10 +34,18 @@ $services = [
     'factory' => Ypf\Application\Swoole::class,
 
     'swoole' => [
-        'listen' => '*:7000',
+        'server' => [
+            'address' => '127.0.0.1',
+            'port' => 7000,
+        ],
+        'options' => [
+            'task_worker_num' => 3,
+        ],
     ],
     'workers' => [
-        ['class' => \Worker\CronTest::class, 'method' => 'run', 'cron' => '3'],
+        [\Worker\SingleTest::class],
+        [\Worker\CronTest::class, '3'],
+        [\Worker\CronTest::class, '* * * * *'],
     ],
     'middleware' => [
         new Middlewares\AccessLog($logger),
