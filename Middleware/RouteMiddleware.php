@@ -36,12 +36,11 @@ class RouteMiddleware implements MiddlewareInterface
             } else {
                 $controllerName = $matchedRoute->getAction()->getClassName();
                 $methodName = $matchedRoute->getAction()->getMethodName();
-                $response = call_user_func([$controllerName, $methodName], $request);
+                $response = call_user_func([new $controllerName(), $methodName], $request);
             }
         } catch (RouteNotFoundException $ex) {
             throw $ex;
         }
-        $response = $handler->handle($request);
 
         return $response;
     }

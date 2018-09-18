@@ -6,7 +6,8 @@
         "oscarotero/middleland": "dev-master",
         "middlewares/request-handler": "dev-master",
         "middlewares/fast-route": "dev-master",
-        "opulence/router": "^1.0@dev"
+        "opulence/router": "^1.0@dev",
+        "middlewares/access-log": "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -23,16 +23,43 @@ $regexFactory = new GroupRegexFactory(
     new FileGroupRegexCache('/tmp/regexes.cache')
 );
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+//Create the logger
+$logger = new Logger('access');
+$logger->pushHandler(new StreamHandler(fopen('./access-log.log', 'wr+')));
+
 $services = [
     'factory' => Ypf\Application\Swoole::class,
 
     'swoole' => [
         'listen' => '*:7000',
     ],
+    'workers' => [
+        ['class' => \Worker\CronTest::class, 'method' => 'run', 'cron' => '3'],
+    ],
     'middleware' => [
+        new Middlewares\AccessLog($logger),
         new Middleware\RouteMiddleware($regexFactory),
     ],
 ];
+$services['db'] = function () {
+    $config = [
+        'dbtype' => 'pgsql',
+        'host' => '172.17.0.3',
+        'port' => 5432,
+        'dbname' => 'ip',
+        'username' => 'postgres',
+        'password' => 'admin',
+        'charset' => 'utf8',
+        'timeout' => 3,
+        'presistent' => false,
+    ];
+    $db = new Ypf\Database\Connection($config);
+
+    return $db;
+};
 $services['logger'] = function () {
     $logger = new Monolog\Logger('test');
     $logger->pushProcessor(new Monolog\Processor\PsrLogMessageProcessor(null, true));
