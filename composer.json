@@ -8,7 +8,9 @@
         "middlewares/fast-route": "dev-master",
         "opulence/router": "^1.0@dev",
         "middlewares/access-log": "dev-master",
-        "dragonmantank/cron-expression": "dev-master"
+        "dragonmantank/cron-expression": "dev-master",
+        "middlewares/aura-session": "dev-master",
+        "zendframework/zend-expressive-session-ext": "^1.2@dev"
     },
     "autoload": {
         "psr-4": {
