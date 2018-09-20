@@ -19,8 +19,9 @@ $router->get('/hello/{name}?', function ($request) {
     $_SESSION['name'] = $name;
 
     return new Response(200, [], 'hello '.$name);
-});
+})->setHost('example.com');
 
+$router->get('/ab123', 'Controller\Index::index');
 $services = [
     'factory' => Ypf\Application\Swoole::class,
 
@@ -29,10 +30,10 @@ $services = [
             'address' => '*',
             'port' => 8080,
         ],
-        // 'options' => [
+        'options' => [
         //     'task_worker_num' => 3,
-        //     'dispatch_mode' => 1,
-        // ],
+             'dispatch_mode' => 1,
+         ],
     ],
     'middleware' => [
         //new Zend\Expressive\Session\SessionMiddleware(new Zend\Expressive\Session\Ext\PhpSessionPersistence()),
