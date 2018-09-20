@@ -7,8 +7,8 @@ use GuzzleHttp\Psr7\Response;
 $router = new Ypf\Route\Router();
 $router->map('GET', '/', function ($request) {
     // $session = $request->getAttribute('session');
-    //$name = $session->get('name', '^_^');
-    $name = isset($name) ? $name : '';
+    $name = $_SESSION['name'];
+    //$name = isset($name) ? $name : '';
 
     return 'Receive '.$name;
 });
@@ -16,6 +16,7 @@ $router->get('/hello/{name}?', function ($request) {
     $name = ucwords($request->getAttribute('name', 'World!'));
     // $session = $request->getAttribute('session');
     // $session->set('name', $name);
+    $_SESSION['name'] = $name;
 
     return new Response(200, [], 'hello '.$name);
 });
@@ -35,6 +36,7 @@ $services = [
     ],
     'middleware' => [
         //new Zend\Expressive\Session\SessionMiddleware(new Zend\Expressive\Session\Ext\PhpSessionPersistence()),
+        new Middlewares\PhpSession(),
         new Ypf\Route\Middleware($router),
     ],
 ];

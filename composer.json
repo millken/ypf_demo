@@ -10,7 +10,8 @@
         "middlewares/access-log": "dev-master",
         "dragonmantank/cron-expression": "dev-master",
         "middlewares/aura-session": "dev-master",
-        "zendframework/zend-expressive-session-ext": "^1.2@dev"
+        "zendframework/zend-expressive-session-ext": "^1.2@dev",
+        "middlewares/php-session": "dev-master"
     },
     "autoload": {
         "psr-4": {
