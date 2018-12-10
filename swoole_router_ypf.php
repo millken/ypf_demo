@@ -41,6 +41,22 @@ $services = [
         new Ypf\Route\Middleware($router),
     ],
 ];
+$services['db'] = function () {
+    $config = [
+        'dbtype' => 'pgsql',
+        'host' => '172.17.0.3',
+        'port' => 5432,
+        'dbname' => 'ip',
+        'username' => 'postgres',
+        'password' => 'admin',
+        'charset' => 'utf8',
+        'timeout' => 3,
+        'presistent' => false,
+    ];
+    $db = new Ypf\Database\Connection($config);
+
+    return $db;
+};
 $services['logger'] = function () {
     $logger = new Monolog\Logger('test');
     $logger->pushProcessor(new Monolog\Processor\PsrLogMessageProcessor(null, true));
